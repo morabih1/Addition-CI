@@ -1,5 +1,6 @@
-name: Addition CI
+name: Calculator CI
 
+# Runs on every push and every pull request (Lab 03: CI with GitHub Actions)
 on:
   push:
   pull_request:
@@ -8,15 +9,30 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Run all unit tests
         run: python -m unittest discover -s tests -v
+
+  demo:
+    # Runs only after the tests pass
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run the calculator with sample input
+        run: printf '1\n2\n3\n4\n4\n0\n4\n10\n2\nq\n' | python calculator.py
