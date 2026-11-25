@@ -21,7 +21,7 @@ class TestEvaluateExpression(unittest.TestCase):
         self.assertEqual(evaluate_expression("  -2 + 5  "), 3)
 
     def test_rejects_invalid_expressions_with_clear_error(self):
-        for expression in ("2 +", "hello", "2 ** 3"):
+        for expression in ("2 +", "hello", "2 ** 3", "nan + 1", "inf / 2"):
             with self.subTest(expression=expression):
                 with self.assertRaisesRegex(ValueError, "Invalid expression"):
                     evaluate_expression(expression)

@@ -7,10 +7,10 @@ A simple command-line calculator built for the CSCI313 Software Engineering proj
 ## Features
 
 - A `Calculator` class with `add()`, `subtract()`, `multiply()` and `divide()`
-- Dividing by zero raises `ValueError("Cannot divide by zero")` and the menu shows a clear error
-- Asks again when you type something that is not a number
+- Type a full expression such as `2 + 3`, `10 / 4`, or `6 * 7`
+- Supports `+`, `-`, `*`, and `/`; invalid expressions and division by zero show clear errors
 - Keeps running until you choose **q** to quit
-- Unit tests for every operation and for the menu, run automatically by GitHub Actions
+- Unit tests for every operation and expression input, run automatically by GitHub Actions
 
 ## Requirements
 
@@ -27,16 +27,10 @@ Example session:
 ```
 === Simple Calculator ===
 
-Choose an operation:
-  1. Add (+)
-  2. Subtract (-)
-  3. Multiply (*)
-  4. Divide (/)
-  q. Quit
-Your choice: 4
-Enter first number: 9
-Enter second number: 0
-Error: Cannot divide by zero
+Enter expression (or q to quit): 2 + 3
+Result: 2 + 3 = 5
+Enter expression (or q to quit): q
+Goodbye!
 ```
 
 ## Run the tests
@@ -49,12 +43,12 @@ python -m unittest discover -s tests -v
 
 | Path | What it contains |
 | --- | --- |
-| `calculator.py` | The `Calculator` class and the menu-driven command line |
+| `calculator.py` | The `Calculator` class and expression-based command line |
 | `tests/test_add.py` | Tests for `add` |
 | `tests/test_subtract.py` | Tests for `subtract` |
 | `tests/test_multiply.py` | Tests for `multiply` |
 | `tests/test_divide.py` | Tests for `divide`, including divide by zero |
-| `tests/test_cli.py` | Scenario tests for the menu (system / use-case testing) |
+| `tests/test_cli.py` | Scenario tests for expression input (system / use-case testing) |
 | `.github/workflows/ci.yml` | GitHub Actions workflow that runs all tests |
 
 ## Continuous integration

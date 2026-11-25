@@ -38,20 +38,13 @@ class Calculator:
         return a / b
 
 
-# Menu option -> (operation name, symbol, Calculator method name)
-MENU = {
-    "1": ("Add", "+", "add"),
-    "2": ("Subtract", "-", "subtract"),
-    "3": ("Multiply", "*", "multiply"),
-    "4": ("Divide", "/", "divide"),
-}
-
-
 def format_number(value):
     """Show whole numbers without a trailing .0 (8.0 -> 8)."""
     if isinstance(value, float) and value.is_integer():
         return str(int(value))
     return str(value)
+
+
 
 def evaluate_expression(expression, calc=None):
     """Evaluate one expression such as '2 + 3'."""
@@ -73,25 +66,6 @@ def evaluate_expression(expression, calc=None):
     }
     return operations[operator](a, b)
 
-def read_number(prompt, input_func=input, output=print):
-    """Keep asking until the user types a valid number."""
-    while True:
-        text = input_func(prompt).strip()
-        try:
-            return float(text)
-        except ValueError:
-            output(f"Error: '{text}' is not a number. Please try again.")
-
-
-def show_menu(output=print):
-    """Print the list of operations."""
-    output("")
-    output("Choose an operation:")
-    for key, (name, symbol, _) in MENU.items():
-        output(f"  {key}. {name} ({symbol})")
-    output("  q. Quit")
-
-
 def main(input_func=input, output=print):
     """Run the calculator until the user chooses to quit."""
     calc = Calculator()
@@ -110,7 +84,7 @@ def main(input_func=input, output=print):
             output(f"Error: {error}")
             continue
 
-        output(f"Result: {format_number(result)}")
+        output(f"Result: {expression} = {format_number(result)}")
 
 
 if __name__ == "__main__":
