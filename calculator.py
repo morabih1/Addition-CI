@@ -5,7 +5,7 @@ Run this file to use the calculator from the command line:
 
     python calculator.py
 """
-
+import re
 
 class Calculator:
     """Performs basic arithmetic on two numbers."""
@@ -53,6 +53,25 @@ def format_number(value):
         return str(int(value))
     return str(value)
 
+def evaluate_expression(expression, calc=None):
+    """Evaluate one expression such as '2 + 3'."""
+    pattern = r"\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*([+\-*/])\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*"
+    match = re.fullmatch(pattern, expression)
+
+    if not match:
+        raise ValueError("Invalid expression. Example: 2 + 3")
+
+    left, operator, right = match.groups()
+    a, b = float(left), float(right)
+    calc = calc or Calculator()
+
+    operations = {
+        "+": calc.add,
+        "-": calc.subtract,
+        "*": calc.multiply,
+        "/": calc.divide,
+    }
+    return operations[operator](a, b)
 
 def read_number(prompt, input_func=input, output=print):
     """Keep asking until the user types a valid number."""
@@ -74,38 +93,24 @@ def show_menu(output=print):
 
 
 def main(input_func=input, output=print):
-    """Run the calculator menu until the user chooses to quit.
-
-    input_func and output can be replaced in tests so the menu
-    can be tested without typing on the keyboard.
-    """
+    """Run the calculator until the user chooses to quit."""
     calc = Calculator()
     output("=== Simple Calculator ===")
 
     while True:
-        show_menu(output)
-        choice = input_func("Your choice: ").strip().lower()
+        expression = input_func("Enter expression (or q to quit): ").strip()
 
-        if choice == "q":
+        if expression.lower() == "q":
             output("Goodbye!")
             return
 
-        if choice not in MENU:
-            output(f"Error: '{choice}' is not a valid choice. Pick 1-4 or q.")
-            continue
-
-        name, symbol, method_name = MENU[choice]
-        a = read_number("Enter first number: ", input_func, output)
-        b = read_number("Enter second number: ", input_func, output)
-
         try:
-            result = getattr(calc, method_name)(a, b)
+            result = evaluate_expression(expression, calc)
         except ValueError as error:
             output(f"Error: {error}")
             continue
 
-        output(f"Result: {format_number(a)} {symbol} {format_number(b)} = "
-               f"{format_number(result)}")
+        output(f"Result: {format_number(result)}")
 
 
 if __name__ == "__main__":
