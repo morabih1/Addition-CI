@@ -29,6 +29,10 @@ class TestEvaluateExpression(unittest.TestCase):
     def test_reports_division_by_zero(self):
         with self.assertRaisesRegex(ValueError, "Cannot divide by zero"):
             evaluate_expression("5 / 0")
+    def test_rejects_numbers_too_large(self):
+        with self.assertRaisesRegex(ValueError, "Number is too large"):
+            evaluate_expression("9" * 400 + " * 1")
+
 
 
 if __name__ == "__main__":

@@ -49,6 +49,7 @@ python -m unittest discover -s tests -v
 | `tests/test_multiply.py` | Tests for `multiply` |
 | `tests/test_divide.py` | Tests for `divide`, including divide by zero |
 | `tests/test_cli.py` | Scenario tests for expression input (system / use-case testing) |
+| `tests/test_expression.py` | Tests for expression parsing, including invalid and too-large numbers |
 | `.github/workflows/ci.yml` | GitHub Actions workflow that runs all tests |
 
 ## Continuous integration
