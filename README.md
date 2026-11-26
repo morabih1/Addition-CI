@@ -66,3 +66,19 @@ Because all tests run again on every change, this also acts as regression testin
 2. Create a branch for it: `feature/<short-name>` for new features (e.g. `feature/multiply`), `bugfix/<short-name>` for bugs (e.g. `bugfix/divide-by-zero`).
 3. Make small commits with clear messages, then open a pull request with a clear title and `Closes #<issue number>` in the description.
 4. A teammate reviews the PR. Merge after approval and a green CI run, then move the card to **Done**.
+
+
+## Run and test on Windows
+
+1. Open Command Prompt in the project folder.
+2. Run the calculator:
+
+```
+py calculator.py
+```
+
+3. Run the tests:
+
+```
+py -m unittest discover -s tests -v
+```
