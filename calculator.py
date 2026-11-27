@@ -6,7 +6,7 @@ Run this file to use the calculator from the command line:
     python calculator.py
 """
 import re
-
+import math
 class Calculator:
     """Performs basic arithmetic on two numbers."""
 
@@ -64,7 +64,10 @@ def evaluate_expression(expression, calc=None):
         "*": calc.multiply,
         "/": calc.divide,
     }
-    return operations[operator](a, b)
+    result = operations[operator](a, b)
+    if not math.isfinite(result):
+        raise ValueError("Number is too large")
+    return result
 
 def main(input_func=input, output=print):
     """Run the calculator until the user chooses to quit."""
@@ -86,9 +89,9 @@ def main(input_func=input, output=print):
 
         output(f"Result: {expression} = {format_number(result)}")
 
-
 if __name__ == "__main__":
     try:
         main()
     except (KeyboardInterrupt, EOFError):
         print("\nGoodbye!")
+
