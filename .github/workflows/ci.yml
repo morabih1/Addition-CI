@@ -35,4 +35,4 @@ jobs:
           python-version: "3.12"
 
       - name: Run the calculator with sample input
-        run: printf '1\n2\n3\n4\n4\n0\n4\n10\n2\nq\n' | python calculator.py
+        run: printf '2 + 3\n5 - 8\n4 * 0\n10 / 2\n4 / 0\nq\n' | python calculator.py
